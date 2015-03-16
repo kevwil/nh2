@@ -26,9 +26,42 @@ var args = require('minimist')(
     process.argv.slice(2),
     {default:{'p':443,'h':'127.0.0.1:8080'}});
 
+var cipherSuites = [
+    'ECDHE-RSA-AES128-GCM-SHA256',
+    'ECDHE-ECDSA-AES128-GCM-SHA256',
+    'ECDHE-RSA-AES256-GCM-SHA384',
+    'ECDHE-ECDSA-AES256-GCM-SHA384',
+    'DHE-RSA-AES128-GCM-SHA256',
+    'DHE-DSS-AES128-GCM-SHA256',
+    'kEDH+AESGCM',
+    'ECDHE-RSA-AES128-SHA256',
+    'ECDHE-ECDSA-AES128-SHA256',
+    'ECDHE-RSA-AES128-SHA',
+    'ECDHE-ECDSA-AES128-SHA',
+    'ECDHE-RSA-AES256-SHA384',
+    'ECDHE-ECDSA-AES256-SHA384',
+    'ECDHE-RSA-AES256-SHA',
+    'ECDHE-ECDSA-AES256-SHA',
+    'DHE-RSA-AES128-SHA256',
+    'DHE-RSA-AES128-SHA',
+    'DHE-DSS-AES128-SHA256',
+    'DHE-RSA-AES256-SHA256',
+    'DHE-DSS-AES256-SHA',
+    'DHE-RSA-AES256-SHA',
+    '!aNULL',
+    '!eNULL',
+    '!EXPORT',
+    '!DES',
+    '!RC4',
+    '!3DES',
+    '!MD5',
+    '!PSK'
+].join(':');
+
 var options = {
     key: fs.readFileSync(args.k),
-    cert: fs.readFileSync(args.c)
+    cert: fs.readFileSync(args.c),
+    ciphers: cipherSuites
 };
 
 http2.createServer(options, function(req, resp){
