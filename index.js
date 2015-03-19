@@ -58,10 +58,16 @@ var cipherSuites = [
     '!PSK'
 ].join(':');
 
+// not including http/1.0
+var supportedProtocols = [http2.protocol.VERSION, 'http/1.1'];
+
 var options = {
     key: fs.readFileSync(args.k),
     cert: fs.readFileSync(args.c),
-    ciphers: cipherSuites
+    ciphers: cipherSuites,
+    ALPNProtocols: supportedProtocols,
+    NPNProtocols: supportedProtocols,
+    honorCipherOrder: true
 };
 
 http2.createServer(options, function(req, resp){
