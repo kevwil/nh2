@@ -19,7 +19,8 @@
 // THE SOFTWARE.
 
 var http2 = require('http2');
-var request = require('request');
+var http = require('http');
+// var request = require('request');
 var fs = require('fs');
 
 var args = require('minimist')(
@@ -71,5 +72,13 @@ var options = {
 };
 
 http2.createServer(options, function(req, resp){
-    req.pipe(request('http://' + args.h + req.url)).pipe(resp);
+    var newReq = http.request('http://' + args.h + req.url, function(newResp){
+        var headers = newResp.headers;
+        delete headers['connection'];
+        headers['X-Firefox-Spdy'] = 'h2';
+        resp.writeHead(newResp.statusCode, headers);
+        newResp.pipe(resp);
+    })
+    req.pipe(newReq);
+    // req.pipe(request('http://' + args.h + req.url)).pipe(resp);
 }).listen(args.p, '0.0.0.0');

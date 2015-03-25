@@ -24,7 +24,6 @@
   "homepage": "https://github.com/kevwil/nh2",
   "dependencies": {
     "http2": "^3.2.0",
-    "minimist": "^1.1.1",
-    "request": "^2.53.0"
+    "minimist": "^1.1.1"
   }
 }
