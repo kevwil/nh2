@@ -62,6 +62,7 @@ var cipherSuites = [
 // not including http/1.0
 var supportedProtocols = [http2.protocol.VERSION, 'http/1.1'];
 
+
 var options = {
     key: fs.readFileSync(args.k),
     cert: fs.readFileSync(args.c),
@@ -75,7 +76,6 @@ http2.createServer(options, function(req, resp){
     var newReq = http.request('http://' + args.h + req.url, function(newResp){
         var headers = newResp.headers;
         delete headers['connection'];
-        headers['X-Firefox-Spdy'] = 'h2';
         resp.writeHead(newResp.statusCode, headers);
         newResp.pipe(resp);
     })
