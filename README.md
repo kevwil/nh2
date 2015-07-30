@@ -1,6 +1,6 @@
 # nh2 – http/2 proxy
 
-__NH2__ is an http/2 proxy and TLS terminator. I created this to replace stud/stunnel/pound/etc. and offer http/2 in hopes of having a peformance benefit over standard HTTP/1.1 + TLS.
+__NH2__ is an http/2 proxy and TLS terminator. I created this to replace stud/stunnel/pound/etc. and offer http/2 in hopes of having a performance benefit over standard HTTP/1.1 + TLS.
 
 __*The backend target server will be called using http (unencrypted).*__
 
