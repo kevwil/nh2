@@ -78,7 +78,7 @@ http2.createServer(options, function(req, resp){
         delete headers['connection'];
         resp.writeHead(newResp.statusCode, headers);
         newResp.pipe(resp);
-    })
+    });
     req.pipe(newReq);
     // req.pipe(request('http://' + args.h + req.url)).pipe(resp);
 }).listen(args.p, '0.0.0.0');
